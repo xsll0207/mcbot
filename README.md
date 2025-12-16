@@ -16,15 +16,25 @@
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
+配置服务器
+编辑 servers.json：
 
+json
+复制代码
 [
   {
     "host": "emerald.magmanode.com",
     "port": 34356
   }
 ]
+支持多个服务器，直接继续添加即可。
 
+查看运行状态
+bash
+复制代码
 pm2 ls
 pm2 logs mcbot
-
+停止 / 卸载
+bash
+复制代码
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/uninstall.sh)
