@@ -33,7 +33,7 @@ else
   NEED_NODE=1
 fi
 
-# ---------- 安装 Node.js 22（仅在需要时） ----------
+# ---------- 安装 Node.js 22 ----------
 if [ "$NEED_NODE" -eq 1 ]; then
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
   apt install -y nodejs
@@ -47,28 +47,22 @@ else
   npm install -g pm2
 fi
 
-# ---------- 安装项目依赖 ----------
-npm install @baipiaodajun/mcbot mineflayer minecraft-protocol node-fetch
-
-# ---------- 初始化 servers.json ----------
-if [ ! -f servers.json ]; then
-cat > servers.json <<EOF
-[
-  {
-    "host": "emerald.magmanode.com",
-    "port": 25565
-  }
-]
-EOF
+# ---------- 检查 index.js ----------
+if [ ! -f index.js ]; then
+  echo "[ERROR] 未找到 index.js，请先配置服务器信息"
+  exit 1
 fi
 
-# ---------- 启动 mcbot ----------
+# ---------- 安装依赖 ----------
+npm install @baipiaodajun/mcbot mineflayer minecraft-protocol node-fetch
+
+# ---------- 启动 ----------
 pm2 delete mcbot >/dev/null 2>&1 || true
 pm2 start index.js --name mcbot
 pm2 save
 
 echo
 echo "=== 安装完成 ==="
-echo "编辑 servers.json 添加服务器"
+echo "编辑 index.js 修改服务器配置"
 echo "查看状态：pm2 ls"
 echo "查看日志：pm2 logs mcbot"
