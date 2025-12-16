@@ -56,7 +56,7 @@ white-list=false
 
 ### 第二步：一键安装
 
-复制下面这一整行命令，在服务器终端中执行：
+复制下面这一整行命令，在自己的任意VPS服务器中执行：
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/你的用户名/mcbot-onekey/main/install.sh)
