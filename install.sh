@@ -2,12 +2,18 @@
 set -e
 
 echo "=== Minecraft mcbot OneKey Installer ==="
+echo
 
 # 必须 root
 if [ "$EUID" -ne 0 ]; then
   echo "请使用 root 用户运行"
   exit 1
 fi
+
+# ========= 你需要改的地方 =========
+REPO_URL="https://github.com/PungwingChan/mcbot-onekey"
+APP_DIR="mcbot-onekey"
+# ==================================
 
 # ---------- 基础依赖 ----------
 apt update
@@ -33,7 +39,6 @@ else
   NEED_NODE=1
 fi
 
-# ---------- 安装 Node.js 22 ----------
 if [ "$NEED_NODE" -eq 1 ]; then
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
   apt install -y nodejs
@@ -47,9 +52,22 @@ else
   npm install -g pm2
 fi
 
-# ---------- 检查 index.js ----------
+# ---------- 拉取项目 ----------
+if [ ! -d "$APP_DIR" ]; then
+  echo "[*] Cloning repository..."
+  git clone "$REPO_URL"
+else
+  echo "[*] Repository already exists, pulling latest..."
+  cd "$APP_DIR"
+  git pull
+  cd ..
+fi
+
+cd "$APP_DIR"
+
+# ---------- 校验入口文件 ----------
 if [ ! -f index.js ]; then
-  echo "[ERROR] 未找到 index.js，请先配置服务器信息"
+  echo "[ERROR] index.js 不存在，请检查仓库内容"
   exit 1
 fi
 
@@ -63,6 +81,6 @@ pm2 save
 
 echo
 echo "=== 安装完成 ==="
-echo "编辑 index.js 修改服务器配置"
+echo "项目目录：$(pwd)"
 echo "查看状态：pm2 ls"
 echo "查看日志：pm2 logs mcbot"
