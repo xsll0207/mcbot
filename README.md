@@ -26,8 +26,6 @@
 在开始之前，请先确保你的 Paper 服务器配置正确。
 
 重要⚠️：Java Version 1.21.1
-重要⚠️：Java Version 1.21.1
-重要⚠️：Java Version 1.21.1
 
 编辑服务器目录下的 `server.properties` 文件，确保以下配置项设置正确：
 
