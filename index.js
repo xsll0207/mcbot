@@ -5,8 +5,8 @@
 
 const servers = [
   {
-    host: 'node-sg-free-01.tickhosting.com',
-    port: 50047,
+    host: 'xslxsl.falixsrv.me',
+    port: 51299,
     // username: 'AFK_Bot',   // 可选，不写则随机
     version: '1.21.1'     // 可选，不写则自动检测
   }
